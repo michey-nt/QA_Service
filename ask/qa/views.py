@@ -1,22 +1,22 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.core.paginator import Paginator
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .models import Question
 
 def test(request, *args, **kwargs):
 	return HttpResponse('OK')
 
 def main(request):
-	page = request.GET.get('page', 1)
-
-	questions = Question.objects.order_by('-added_at')
+	question_list = Question.objects.all().order_by('-id')
+	paginator = Paginator(question_list, 10)
 	
-	paginator = Paginator(questions, 10)
-	paginator.baseurl = '?page='
+	page = request.GET.get('page')
+	try:
+		questions = paginator.page(page)
+	except PageNotAnInteger:
+		questions = paginator.page(1)
+	except EmptyPage:
+		questions = paginator.page(paginator.num_pages)
 
-	page = paginator.page(page)
-
-	return render (request, 'main.html', {
-		questions:	page.object_list,
-		paginator:	paginator, page: page,
-	})
+	return render(request, 'main.html', { 'questions' : questions })
+	

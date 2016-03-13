@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Questions</title>
+	</head>
+
+<body>
+
+{% for question in questions %}
+	{{ question.title }} <br/ >
+	{{ question.added_at }} <br/ >
+	<a href = "question/{{ question.id }}/">question link</a> <br/ >
+{% endfor %}
+
+</body>
+</html>
