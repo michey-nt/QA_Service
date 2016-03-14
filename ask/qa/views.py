@@ -1,10 +1,21 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Question, Answer
+from .forms import AskForm
 
 def test(request, *args, **kwargs):
 	return HttpResponse('OK')
+
+def ask(request, *args, **kwargs):
+	form = AskForm()
+	if request.method == "GET":
+		return render(request, 'ask.html', {'form' : form})
+	else:
+		if form.is_valid():
+			question = form.save()
+			id = question.id
+			return HttpResponseRedirect("/question/" + id)
 
 def question(request, *args, **kwargs):
 	one_question = get_object_or_404(Question, id = args[0])
