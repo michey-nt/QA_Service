@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>QA_Service - All questions</title>
+</head>
+
+<body>
+
+<h1>All questions</h1>
+{% for question in questions %}
+{{ question.title }} <i>(rating: {{ question.rating }})</i><br/>
+<a href="/question/{{question.id}}/">question link</a><hr/>
+{% endfor %}
+
+</body>
+</html>

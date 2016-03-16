@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title> QA_Service - Question # {{ question.id }} </title>
+</head>
+
+<body>
+
+<h1>Question # {{ question.id }} </h1><hr/>
+<h2>{{ question.title }} </h2>
+<h3>{{ question.text }} </h3>
+<hr/>
+<h2>ANSWERS:</h2>
+<ol>
+{% for answer in answers %}
+	<li>{{ answer.text }}</li>
+{% endfor %}
+</ol>
+<hr/>
+<h2>ADD YOUR ANSWER:</h2>
+<form action = "/answer/" method="POST">
+	{{ form.as_p }}
+	{% csrf_token %}
+<input type="submit" value="Add Answer"/>
+</form>
+
+</body>
+</html>

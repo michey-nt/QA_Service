@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title> QA_Service - Ask Question</title>
+</head>
+
+<body>
+
+<h1>Ask Question</h1>
+<form action="/ask/" method="POST">
+{% csrf_token %}
+{{ form.as_ul }}
+<input type="submit" value="Ask Question"/>
+
+</body>
+</html>

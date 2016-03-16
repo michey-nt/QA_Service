@@ -2,28 +2,34 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Question, Answer
-from .forms import AskForm
+from .forms import AskForm, AnswerForm
 
 def test(request, *args, **kwargs):
 	return HttpResponse('OK')
 
+def answer(request, *args, **kwargs):
+	if request.method == "POST":
+		form = AnswerForm(request.POST)
+		if form.is_valid():
+			answer = form.save()
+			return HttpResponseRedirect('/question/' + str(answer.question_id))
+
 def ask(request, *args, **kwargs):
-	form = AskForm()
-	if request.method == "GET":
-		return render(request, 'ask.html', {'form' : form})
-	else:
+	if request.method == "POST":
+		form = AskForm(request.POST)
 		if form.is_valid():
 			question = form.save()
-			id = question.id
-			return HttpResponseRedirect("/question/" + id)
+			return HttpResponseRedirect('/question/' + str(question.id))
+	else:
+		form = AskForm()
+	return render(request, 'ask.html', {'form' : form})
 
 def question(request, *args, **kwargs):
-	one_question = get_object_or_404(Question, id = args[0])
-	answers = Answer.objects.filter(question=one_question)
-	return render(request, 'question.html',  {
-		'question' : one_question,
-		'answers' : answers,
-	})
+	question = get_object_or_404(Question, id=args[0])
+	answers = Answer.objects.filter(question = question)
+	form = AnswerForm(initial={'question' : question.id})
+	return render(request, 'question.html',
+		{'question' : question, 'answers' : answers, 'form' : form})
 
 def main(request):
 	question_list = Question.objects.all().order_by('-id')

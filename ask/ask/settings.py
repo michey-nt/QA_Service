@@ -50,7 +50,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'ask.urls'
 
-TEMPLATE_DIRS = '/home/box/web/ask/qa'
+TEMPLATE_DIRS = BASE_DIR + '/templates'
 
 WSGI_APPLICATION = 'ask.wsgi.application'
 
