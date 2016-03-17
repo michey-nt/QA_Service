@@ -2,27 +2,29 @@
 
 <html>
 <head>
-	<title> QA_Service - Question # {{ question.id }} </title>
+	<meta charset="utf-8">
+	<title> QA_Service - Вопрос № {{ question.id }} </title>
 </head>
 
 <body>
 
-<h1>Question # {{ question.id }} </h1><hr/>
+<h1>Вопрос № {{ question.id }} </h1><hr/>
 <h2>{{ question.title }} </h2>
 <h3>{{ question.text }} </h3>
+<i>(Author: {{ question.author }})</i>
 <hr/>
-<h2>ANSWERS:</h2>
+<h2>Ответы:</h2>
 <ol>
 {% for answer in answers %}
-	<li>{{ answer.text }}</li>
+	<li>{{ answer.text }} <i>(Author: {{ answer.author }})</i></li>
 {% endfor %}
 </ol>
 <hr/>
-<h2>ADD YOUR ANSWER:</h2>
+<h2>Добавить свой ответ:</h2>
 <form action = "/answer/" method="POST">
 	{{ form.as_p }}
 	{% csrf_token %}
-<input type="submit" value="Add Answer"/>
+<input type="submit" value="Добавить ответ"/>
 </form>
 
 </body>

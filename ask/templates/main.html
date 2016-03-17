@@ -2,12 +2,14 @@
 
 <html>
 <head>
-	<title>QA_Service - All questions</title>
+	<meta charset="utf-8">
+	<title>QA_Service - Сервис вопросов и ответов</title>
 </head>
 
 <body>
 
-<h1>All questions</h1>
+Пользователь: {{ user.username }} <hr/>
+<h1>Все вопросы:</h1>
 {% for question in questions %}
 {{ question.title }} <i>(rating: {{ question.rating }})</i><br/>
 <a href="/question/{{question.id}}/">question link</a><hr/>

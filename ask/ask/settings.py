@@ -52,6 +52,10 @@ ROOT_URLCONF = 'ask.urls'
 
 TEMPLATE_DIRS = BASE_DIR + '/templates'
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+	'django.contrib.auth.context_processors.auth',
+)
+
 WSGI_APPLICATION = 'ask.wsgi.application'
 
 
@@ -70,7 +74,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'UTC'
 

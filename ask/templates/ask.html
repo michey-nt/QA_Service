@@ -2,16 +2,17 @@
 
 <html>
 <head>
-	<title> QA_Service - Ask Question</title>
+	<meta charset="utf-8">
+	<title> QA_Service - Задать вопрос</title>
 </head>
 
 <body>
 
-<h1>Ask Question</h1>
+<h1>Задать вопрос:</h1>
 <form action="/ask/" method="POST">
 {% csrf_token %}
 {{ form.as_ul }}
-<input type="submit" value="Ask Question"/>
+<input type="submit" value="Задать вопрос"/>
 
 </body>
 </html>
